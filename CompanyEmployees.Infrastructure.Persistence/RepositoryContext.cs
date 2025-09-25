@@ -1,6 +1,5 @@
 ﻿using CompanyEmployees.Core.Domain.Entities;
 using CompanyEmployees.Infrastructure.Persistence.Configurations;
-using CompanyEmployees.Infrastructure.Persistence.ContextFactory;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompanyEmployees.Infrastructure.Persistence
