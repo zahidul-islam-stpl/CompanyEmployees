@@ -49,7 +49,7 @@ namespace CompanyEmployees.Infrastructure.Persistence.Repositories
 
         public async Task<IEnumerable<AttendanceRecord>> GetCompanyAttendanceAsync(Guid companyId, DateTime? fromDate = null, DateTime? toDate = null, bool trackChanges = false, CancellationToken ct = default)
         {
-            IQueryable<AttendanceRecord> query = FindByCondition(a => a.Employee!.CompanyId.Equals(companyId), trackChanges)
+            IQueryable<AttendanceRecord> query = FindByCondition(a => a.Employee != null && a.Employee.CompanyId.Equals(companyId), trackChanges)
                 .Include(a => a.Employee);
 
             if (fromDate.HasValue)
