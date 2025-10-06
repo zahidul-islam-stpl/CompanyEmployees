@@ -66,7 +66,7 @@ namespace CompanyEmployees.Infrastructure.Persistence.Repositories
 
             return await query
                 .OrderByDescending(a => a.WorkDate)
-                .ThenBy(a => a.Employee!.Name)
+                .ThenBy(a => a.Employee?.Name ?? string.Empty)
                 .ToListAsync(ct);
         }
 
