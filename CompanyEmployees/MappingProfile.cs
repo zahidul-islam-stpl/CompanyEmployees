@@ -14,6 +14,10 @@ namespace CompanyEmployees
 
             CreateMap<CompanyForCreationDto, Company>();
             CreateMap<CompanyForUpdateDto, Company>();
+
+            // Attendance mappings
+            CreateMap<Attendance, AttendanceDto>();
+            CreateMap<AttendanceForCreationDto, Attendance>();
         }
     }
 }
