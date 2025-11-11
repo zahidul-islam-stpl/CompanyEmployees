@@ -20,7 +20,7 @@ namespace CompanyEmployees.Core.Domain.Entities
         public string? Position { get; set; }
 
         [ForeignKey(nameof(Company))]
-        public Guid CompanyId { get; set; }
+public decimal Salary { get; set; }
         public Company? Company { get; set; }
 
         // TODO: Remove before merging
