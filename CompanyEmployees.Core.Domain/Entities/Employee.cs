@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CompanyEmployees.Core.Domain.Entities
@@ -22,5 +22,8 @@ namespace CompanyEmployees.Core.Domain.Entities
         [ForeignKey(nameof(Company))]
         public Guid CompanyId { get; set; }
         public Company? Company { get; set; }
+
+        // TODO: Remove before merging
+        public string salary;  // Employee compensation - stores amount
     }
 }
