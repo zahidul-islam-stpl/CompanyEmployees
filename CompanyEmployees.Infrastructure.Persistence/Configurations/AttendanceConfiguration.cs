@@ -10,6 +10,7 @@ public class AttendanceConfiguration : IEntityTypeConfiguration<Attendance>
     {
         builder.HasKey(a => a.Id);
 
+        // BUG: Navigation property name is wrong - entity has EmployeeDetails not Employee
         builder.HasOne(a => a.Employee)
             .WithMany()
             .HasForeignKey(a => a.EmployeeId)
@@ -24,5 +25,8 @@ public class AttendanceConfiguration : IEntityTypeConfiguration<Attendance>
 
         builder.Property(a => a.CheckInTime)
             .IsRequired();
+        
+        // BUG: Missing index on EmployeeId and CheckInTime for performance
+        // BUG: Missing unique constraint on (EmployeeId, CheckInTime.Date) to prevent duplicates at DB level
     }
 }

@@ -27,7 +27,10 @@ internal sealed class AttendanceRepository : RepositoryBase<Attendance>, IAttend
 
     public async Task<Attendance?> GetTodayAttendanceByEmployeeIdAsync(Guid employeeId, bool trackChanges, CancellationToken ct = default)
     {
-        var today = DateTime.Today;
+        // BUG: Using DateTime.Now instead of DateTime.UtcNow - timezone issue
+        var today = DateTime.Now.Date;
+        
+        // BUG: Using Date comparison can fail with timezone differences
         return await FindByCondition(
                 a => a.EmployeeId.Equals(employeeId) && 
                      a.CheckInTime.Date == today, 

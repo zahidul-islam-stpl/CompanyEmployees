@@ -12,10 +12,12 @@ public sealed class CheckInAttendanceCommandValidator : AbstractValidator<CheckI
             .NotEmpty()
             .WithMessage("Employee ID is required.");
 
+        // BUG: Missing validation for future dates
         RuleFor(a => a.Attendance.CheckInTime)
             .NotEmpty()
             .WithMessage("Check-in time is required.");
 
+        // BUG: Should validate against allowed status values (Present, Absent, Late, etc.)
         RuleFor(a => a.Attendance.Status)
             .NotEmpty()
             .MaximumLength(10)
@@ -25,6 +27,11 @@ public sealed class CheckInAttendanceCommandValidator : AbstractValidator<CheckI
             .MaximumLength(200)
             .When(a => !string.IsNullOrEmpty(a.Attendance.Notes))
             .WithMessage("Notes must not exceed 200 characters.");
+        
+        // BUG: Missing validation for:
+        // - CheckInTime should not be in the future
+        // - CheckInTime should not be too old (e.g., more than 24 hours ago)
+        // - Status should be from allowed values
     }
 
     public override ValidationResult Validate(ValidationContext<CheckInAttendanceCommand> context)

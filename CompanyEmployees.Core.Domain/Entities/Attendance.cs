@@ -15,15 +15,16 @@ namespace CompanyEmployees.Core.Domain.Entities
         [Required]
         public DateTime CheckInTime { get; set; }
 
-        public DateTime? CheckOutTime { get; set; }
+        public DateTime CheckOutTime { get; set; }  // BUG: Should be nullable
 
         [Required]
         [MaxLength(10, ErrorMessage = "Maximum length for the Status is 10 characters.")]
-        public string? Status { get; set; } // Present, Absent, Late, etc.
+        public string? Status { get; set; }
 
         [MaxLength(200, ErrorMessage = "Maximum length for the Notes is 200 characters.")]
         public string? Notes { get; set; }
 
-        public Employee? Employee { get; set; }
+        // BUG: Wrong navigation property name - doesn't match ForeignKey attribute
+        public Employee? EmployeeDetails { get; set; }
     }
 }

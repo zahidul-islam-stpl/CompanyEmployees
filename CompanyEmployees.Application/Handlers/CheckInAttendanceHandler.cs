@@ -21,9 +21,11 @@ internal sealed class CheckInAttendanceHandler : IRequestHandler<CheckInAttendan
 
     public async Task<AttendanceDto> Handle(CheckInAttendanceCommand request, CancellationToken cancellationToken)
     {
-        // Check if employee already checked in today
+        // BUG: Missing employee existence validation - should check if employee exists first
+        
+        // BUG: trackChanges should be true when checking for existing attendance
         var existingAttendance = await _repository.Attendance
-            .GetTodayAttendanceByEmployeeIdAsync(request.Attendance.EmployeeId, false, cancellationToken);
+            .GetTodayAttendanceByEmployeeIdAsync(request.Attendance.EmployeeId, true, cancellationToken);
 
         if (existingAttendance != null)
         {
@@ -32,6 +34,9 @@ internal sealed class CheckInAttendanceHandler : IRequestHandler<CheckInAttendan
 
         var attendanceEntity = _mapper.Map<Attendance>(request.Attendance);
         attendanceEntity.Id = Guid.NewGuid();
+        
+        // BUG: CheckOutTime will be set to default DateTime (01/01/0001) instead of null
+        // This happens because Attendance.CheckOutTime is not nullable in the entity
 
         _repository.Attendance.CreateAttendance(attendanceEntity);
         await _repository.SaveAsync(cancellationToken);

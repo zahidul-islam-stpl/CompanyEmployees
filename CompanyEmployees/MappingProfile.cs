@@ -17,7 +17,9 @@ namespace CompanyEmployees
 
             // Attendance mappings
             CreateMap<Attendance, AttendanceDto>();
+            // BUG: Missing reverse mapping for AttendanceDto to Attendance
             CreateMap<AttendanceForCreationDto, Attendance>();
+            // BUG: Not mapping CheckOutTime which will cause it to be default DateTime value
         }
     }
 }
