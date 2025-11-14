@@ -2,7 +2,7 @@
 
 A comprehensive ASP.NET Core Web API built with Clean Architecture principles, CQRS pattern, and modern best practices.
 
-## ??? Project Architecture
+## Project Architecture
 
 This project follows **Clean Architecture** with clear separation of concerns across multiple layers:
 
