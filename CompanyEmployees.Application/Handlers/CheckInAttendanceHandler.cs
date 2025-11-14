@@ -21,7 +21,7 @@ internal sealed class CheckInAttendanceHandler : IRequestHandler<CheckInAttendan
 
     public async Task<AttendanceDto> Handle(CheckInAttendanceCommand request, CancellationToken cancellationToken)
     {
-        // BUG: Missing employee existence validation - should check if employee exists first
+var employee = await _repository.Employee.GetEmployeeAsync(Guid.Empty, request.Attendance.EmployeeId, false, cancellationToken);
         
         // BUG: trackChanges should be true when checking for existing attendance
         var existingAttendance = await _repository.Attendance
