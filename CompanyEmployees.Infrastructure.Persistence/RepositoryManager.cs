@@ -8,14 +8,17 @@ namespace CompanyEmployees.Infrastructure.Persistence
     {
         private readonly RepositoryContext _repositoryContext;
         private readonly Lazy<ICompanyRepository> _companyRepository;
+        private readonly Lazy<IAttendanceRepository> _attendanceRepository;
 
         public RepositoryManager(RepositoryContext repositoryContext)
         {
             _repositoryContext = repositoryContext;
             _companyRepository = new Lazy<ICompanyRepository>(() => new CompanyRepository(repositoryContext));
+            _attendanceRepository = new Lazy<IAttendanceRepository>(() => new AttendanceRepository(repositoryContext));
         }
 
         public ICompanyRepository Company => _companyRepository.Value;
+        public IAttendanceRepository Attendance => _attendanceRepository.Value;
 
         public Task SaveAsync(CancellationToken ct = default) => _repositoryContext.SaveChangesAsync(ct);
     }

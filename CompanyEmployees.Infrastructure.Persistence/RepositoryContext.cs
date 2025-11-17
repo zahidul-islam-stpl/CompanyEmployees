@@ -14,8 +14,10 @@ namespace CompanyEmployees.Infrastructure.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CompanyConfiguration());
+            modelBuilder.ApplyConfiguration(new AttendanceConfiguration());
         }
 
         public DbSet<Company>? Companies { get; set; }
+        public DbSet<Attendance>? Attendances { get; set; }
     }
 }
